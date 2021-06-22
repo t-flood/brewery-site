@@ -3,26 +3,22 @@ import React, { useState, useEffect } from "react";
 
 function App() {
   const [count, setCount] = useState(0);
-  const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
+  const [breweryName, setBreweryName] = useState(null);
 
   useEffect(() => {
-    fetch("https://randomuser.me/api/")
+    fetch("https://api.openbrewerydb.org/breweries")
       .then((results) => results.json())
       .then((data) => {
-        const { name } = data.results[0];
-        setFirstName(name.first);
-        setLastName(name.last);
+        const brewery = data[0].name;
+        console.log(brewery);
+        setBreweryName(brewery);
       });
   }, []);
   return (
     <div className="App">
       <p>You clicked {count} times </p>
       <button onClick={() => setCount(count + 1)}>Click me!</button>
-      <p>
-        Name:{" "}
-        {!firstName || !lastName ? "Loading..." : `${firstName} ${lastName}`}
-      </p>
+      <p>Name: {!breweryName ? "Loading..." : `${breweryName}`}</p>
     </div>
   );
 }
