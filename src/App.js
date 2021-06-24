@@ -1,26 +1,34 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Search from "./components/Search";
+import BreweryList from "./components/BreweryList";
 
-function App() {
-  const [count, setCount] = useState(0);
-  const [breweryName, setBreweryName] = useState(null);
+const App = () => {
+  // const [count, setCount] = useState(0);
+  const [breweries, setBreweries] = useState("");
+  const [query, setQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://api.openbrewerydb.org/breweries")
-      .then((results) => results.json())
-      .then((data) => {
-        const brewery = data[0].name;
-        console.log(brewery);
-        setBreweryName(brewery);
-      });
-  }, []);
+    const fetchBreweries = async () => {
+      const result =
+        await axios(`https://api.openbrewerydb.org/breweries?bystate=${query}
+
+      `);
+      console.log(result.data);
+      setBreweries(result.data);
+      setIsLoading(false);
+    };
+    fetchBreweries();
+  });
+
   return (
-    <div className="App">
-      <p>You clicked {count} times </p>
-      <button onClick={() => setCount(count + 1)}>Click me!</button>
-      <p>Name: {!breweryName ? "Loading..." : `${breweryName}`}</p>
+    <div className="container">
+      <Search getQuery={(query) => setQuery(query)} />
+      <BreweryList isLoading={isLoading} breweries={breweries} />
     </div>
   );
-}
+};
 
 export default App;
