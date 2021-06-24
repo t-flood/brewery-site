@@ -13,7 +13,7 @@ const App = () => {
   useEffect(() => {
     const fetchBreweries = async () => {
       const result =
-        await axios(`https://api.openbrewerydb.org/breweries?bystate=${query}
+        await axios(`https://api.openbrewerydb.org/breweries?by_state=${query}
 
       `);
       console.log(result.data);
@@ -21,7 +21,7 @@ const App = () => {
       setIsLoading(false);
     };
     fetchBreweries();
-  });
+  }, [query]);
 
   return (
     <div className="container">
