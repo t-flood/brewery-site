@@ -5,7 +5,7 @@ import Search from "./components/Search";
 import BreweryList from "./components/BreweryList";
 
 const App = () => {
-  // const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
   const [breweries, setBreweries] = useState("");
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -25,6 +25,8 @@ const App = () => {
 
   return (
     <div className="container">
+      <h1>{count}</h1>
+      <button onClick={() => setCount(count + 1)}>Add to the count</button>
       <Search getQuery={(query) => setQuery(query)} />
       <BreweryList isLoading={isLoading} breweries={breweries} />
     </div>
