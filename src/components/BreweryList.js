@@ -7,7 +7,7 @@ const BreweryList = ({ breweries, isLoading }) => {
   ) : (
     <section className="cards">
       {breweries.map((breweries) => (
-        <BreweryInfo key={breweries.id} />
+        <BreweryInfo key={breweries.id} brewery={breweries} />
       ))}
     </section>
   );
